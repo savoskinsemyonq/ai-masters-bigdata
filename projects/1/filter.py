@@ -56,6 +56,7 @@ else:
   else:
     outfields = list(fields_without_category) # like deepcopy, but on the first level only!
     outfields.remove(field)
+    
 
 
 
