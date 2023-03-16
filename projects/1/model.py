@@ -42,4 +42,3 @@ model = Pipeline(steps=[
     ('preprocessor', preprocessor),
     ('linearregression', LogisticRegression())
 ])
-
