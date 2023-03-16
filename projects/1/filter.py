@@ -56,7 +56,7 @@ else:
   else:
     outfields = list(fields_without_category) # like deepcopy, but on the first level only!
     outfields.remove(field)
-    
+
 
 
 
@@ -71,7 +71,7 @@ for line in sys.stdin:
     # logging.info(f'fields = {hotel_record}')
     #apply filter conditions
     if filter_cond(hotel_record):
-        output = "\t".join([hotel_record[x] for x in outfields])
+        output = ",".join([hotel_record[x] for x in outfields])
         print(output)
 
 
