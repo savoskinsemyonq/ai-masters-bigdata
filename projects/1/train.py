@@ -10,7 +10,7 @@ from joblib import dump
 #
 # Import model definition
 #
-from model import model, fields
+from model import model, fields, fields_without_category
 
 
 #
@@ -41,12 +41,13 @@ logging.info(f"TRAIN_PATH {train_path}")
 #fields = """doc_id,hotel_name,hotel_url,street,city,state,country,zip,class,price,
 #num_reviews,CLEANLINESS,ROOM,SERVICE,LOCATION,VALUE,COMFORT,overall_ratingsource""".replace("\n",'').split(",")
 
-read_table_opts = dict(sep=",", names=fields, index_col=False)
+read_table_opts = dict(sep="\t", names=fields, index_col=False)
 df = pd.read_table(train_path, **read_table_opts)
 
+df = df[fields_without_category]
 #split train/test
 X_train, X_test, y_train, y_test = train_test_split(
-    df.iloc[:,:-1], df.iloc[:,-1], test_size=0.33, random_state=42
+    df.drop(columns=["label"]), df.label, test_size=0.33, random_state=42
 )
 
 #
@@ -56,9 +57,9 @@ model.fit(X_train, y_train)
 
 model_score = model.score(X_test, y_test)
 
-logging.info(f"model score: {model_score:.3f}")
+logging.info(f"model score: {model_score:.3f},fields: {fields_without_category}")
 
 # save the model
-dump(model, "{}.joblib".format(proj_id))
+dump(model, "1.joblib")
 
 
