@@ -6,7 +6,12 @@ from glob import glob
 import logging
 
 sys.path.append('.')
-from model import fields, fields_without_category
+
+numeric_features = ["if"+str(i) for i in range(1,14)]
+categorical_features = ["cf"+str(i) for i in range(1,27)] + ["day_number"]
+
+fields = ["id", "label"] + numeric_features + categorical_features
+fields_without_category = ["id", "label"] + numeric_features
 
 #
 # Init the logger
@@ -61,17 +66,19 @@ else:
 
 
 for line in sys.stdin:
+    logging.info(f'line_filter:{line}')
     # skip header
     if line.startswith(fields_without_category[0]):
         continue
 
     #unpack into a tuple/dict
-    values = line.rstrip().split('\t')
+    values = line.rstrip().split('\t')[:15:]
+    logging.info(f'value_filter:{values}')
     hotel_record = dict(zip(fields_without_category, values)) #Hotel(values)
     # logging.info(f'fields = {hotel_record}')
     #apply filter conditions
     if filter_cond(hotel_record):
-        output = ",".join([hotel_record[x] for x in outfields])
+        output = "\t".join([hotel_record[x] for x in outfields])
         print(output)
 
 

@@ -40,5 +40,5 @@ preprocessor = ColumnTransformer(
 # Now we have a full prediction pipeline.
 model = Pipeline(steps=[
     ('preprocessor', preprocessor),
-    ('linearregression', LogisticRegression())
+    ('logisticregression', LogisticRegression())
 ])

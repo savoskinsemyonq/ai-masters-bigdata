@@ -57,7 +57,7 @@ model.fit(X_train, y_train)
 
 model_score = model.score(X_test, y_test)
 
-logging.info(f"model score: {model_score:.3f},fields: {fields_without_category}")
+logging.info(f"model score: {model_score:.3f},fields: {len(df)}")
 
 # save the model
 dump(model, "1.joblib")
