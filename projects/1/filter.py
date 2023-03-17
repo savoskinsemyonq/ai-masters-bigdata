@@ -77,8 +77,11 @@ for line in sys.stdin:
     hotel_record = dict(zip(fields_without_category, values)) #Hotel(values)
     # logging.info(f'fields = {hotel_record}')
     #apply filter conditions
+    # output = ",".join([hotel_record[x] for x in outfields])
+    # logging.info(f'!!!!!!!!!!!!!!!!{hotel_record}!!!!!!!!!!!!!!!!!!!!!!!!!{output}')
     if filter_cond(hotel_record):
-        output = "\t".join([hotel_record[x] for x in outfields])
+        output = ",".join([hotel_record[x] for x in outfields])
+        # logging.info(f'output = {output}')
         print(output)
 
 
