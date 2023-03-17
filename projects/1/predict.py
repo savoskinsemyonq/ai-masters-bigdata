@@ -29,14 +29,15 @@ model = load("1.joblib")
 
 #read and infere
 read_opts=dict(
-        sep='\t', names=fields, index_col=False, header=None,
+        sep=',', names=fields, index_col=False, header=None,
         iterator=True, chunksize=100
 )
 
 for df in pd.read_csv(sys.stdin, **read_opts):
     df = df[fields_without_category]
     pred = model.predict_proba(df)[::,1]
-    logging.info(f'len(df) = {len(df)},len(pred) = {len(pred)} df:{df},pred:{pred}')
+    
+#     logging.info(f'len(df) = {len(df)},len(pred) = {len(pred)} df:{df},pred:{pred}')
     out = zip(df.id, pred)
     print("\n".join(["{0},{1}".format(*i) for i in out]))
 
