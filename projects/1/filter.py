@@ -66,14 +66,14 @@ else:
 
 
 for line in sys.stdin:
-    logging.info(f'line_filter:{line}')
+    # logging.info(f'line_filter:{line}')
     # skip header
     if line.startswith(fields_without_category[0]):
         continue
 
     #unpack into a tuple/dict
     values = line.rstrip().split('\t')[:15:]
-    logging.info(f'value_filter:{values}')
+    # logging.info(f'value_filter:{values}')
     hotel_record = dict(zip(fields_without_category, values)) #Hotel(values)
     # logging.info(f'fields = {hotel_record}')
     #apply filter conditions

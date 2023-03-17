@@ -8,7 +8,7 @@ import sys
 import os
 import logging
 import pandas as pd
-from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import log_loss
 
 #
 # Init the logger
@@ -49,7 +49,7 @@ df = df_true.join(df_pred)
 len_df = len(df)
 assert len_true == len_df, f"Kombined true and pred has different number of records: {len_df}"
 
-score = mean_absolute_error(df['true'], df['pred'])
+score = log_loss(df['true'], df['pred'])
 
 print(score)
 
