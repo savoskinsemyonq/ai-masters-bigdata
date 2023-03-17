@@ -35,8 +35,10 @@ read_opts=dict(
 
 for df in pd.read_csv(sys.stdin, **read_opts):
     df = df[fields_without_category]
+    if(len(df)==0):
+        continue
     pred = model.predict_proba(df)[::,1]
-    
+
 #     logging.info(f'len(df) = {len(df)},len(pred) = {len(pred)} df:{df},pred:{pred}')
     out = zip(df.id, pred)
     print("\n".join(["{0},{1}".format(*i) for i in out]))
