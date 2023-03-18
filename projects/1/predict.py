@@ -5,7 +5,7 @@ import logging
 from joblib import load
 import pandas as pd
 
-numeric_features = ["if"+str(i) for i in range(1,14)]
+numeric_features = ["if"+str(i) for i in range(1,13)]
 categorical_features = ["cf"+str(i) for i in range(1,27)] + ["day_number"]
 
 fields = ["id", "label"] + numeric_features + categorical_features
@@ -35,8 +35,8 @@ read_opts=dict(
 
 for df in pd.read_csv(sys.stdin, **read_opts):
     df = df[fields_without_category]
-    df.if13 = df.if13.str[:-2].replace('', 0).astype(int)
-#     logging.info(f'?????????????????????????????len(df) = {len(df)} df:{df}')
+    # df.if13 = df.if13.str[:-2].replace('', 0).astype(int)
+    # logging.info(f'?????????????????????????????len(df) = {len(df)} df:{df}')
 
     pred = model.predict_proba(df)[::,1]
     out = zip(df.id, pred)
