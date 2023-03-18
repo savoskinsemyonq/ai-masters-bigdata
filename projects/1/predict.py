@@ -37,9 +37,9 @@ for df in pd.read_csv(sys.stdin, **read_opts):
     df = df[fields_without_category]
     df.if13 = df.if13.str[:-2].replace('', 0).astype(int)
 #     logging.info(f'?????????????????????????????len(df) = {len(df)} df:{df}')
-    pred = model.predict_proba(df)[::,1]
 
-#     logging.info(f'len(df) = {len(df)},len(pred) = {len(pred)} df:{df},pred:{pred}')
+    pred = model.predict_proba(df)[::,1]
     out = zip(df.id, pred)
+    # logging.info(f'len(df) = {len(df)},len(pred) = {len(pred)} df:{df},pred:{pred}')
     print("\n".join(["{0},{1}".format(*i) for i in out]))
 
