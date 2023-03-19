@@ -59,8 +59,8 @@ X_train, X_test, y_train, y_test = train_test_split(
 # Train the model
 #
 logging.info(f"fields: {len(df)}")
-print(df.head(5))
-print(df.if1.isna().sum())
+# print(df.head(5))
+# print(df.if1.isna().sum())
 model.fit(X_train, y_train)
 
 model_score = model.score(X_test, y_test)
