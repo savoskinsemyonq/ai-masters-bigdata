@@ -73,7 +73,7 @@ for line in sys.stdin:
 
     #unpack into a tuple/dict
     # values = line.rstrip().split('\t')[:15:]
-    values = line.rstrip('\t').split('\t')
+    values = line.rstrip().split('\t')
     # logging.info(f'value_filter:{values}')
     hotel_record = dict(zip(fields_without_category, values)) #Hotel(values)
     # logging.info(f'fields = {hotel_record}')
