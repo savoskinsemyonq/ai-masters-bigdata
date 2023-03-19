@@ -47,19 +47,19 @@ exec(open(filter_cond_files[0]).read())
 
 if len(sys.argv) == 1:
   #by default print all fields
-  outfields = fields_without_category
+  outfields = fields
 else:
   op, field = sys.argv[1][0], sys.argv[1][1:]
   logging.info(f"OP {op}")
   logging.info(f"FIELD {field}")
 
-  if not op in "+-" or not field in fields_without_category:
+  if not op in "+-" or not field in fields:
     logging.critical("The optional argument must start with + or - followed by a valid field")
     sys.exit(1)
   elif op == '+':
-    outfields = [fields_without_category[0], field]
+    outfields = [fields[0], field]
   else:
-    outfields = list(fields_without_category) # like deepcopy, but on the first level only!
+    outfields = list(fields) # like deepcopy, but on the first level only!
     outfields.remove(field)
 
 
@@ -68,14 +68,14 @@ else:
 for line in sys.stdin:
     # logging.info(f'line_filter:{line}')
     # skip header
-    if line.startswith(fields_without_category[0]):
+    if line.startswith(fields[0]):
         continue
 
     #unpack into a tuple/dict
     # values = line.rstrip().split('\t')[:15:]
     values = line.rstrip().split('\t')
     # logging.info(f'value_filter:{values}')
-    hotel_record = dict(zip(fields_without_category, values)) #Hotel(values)
+    hotel_record = dict(zip(fields, values)) #Hotel(values)
     # logging.info(f'fields = {hotel_record}')
     #apply filter conditions
     # output = ",".join([hotel_record[x] for x in outfields])
