@@ -8,8 +8,8 @@ import pandas as pd
 numeric_features = ["if"+str(i) for i in range(1,13)]
 categorical_features = ["cf"+str(i) for i in range(1,27)] + ["day_number"]
 
-fields = ["id", "label"] + numeric_features + categorical_features
-fields_without_category = ["id", "label"] + numeric_features
+# fields = ["id", "label"] + numeric_features + categorical_features
+fields_without_category = ["id"] + numeric_features
 
 sys.path.append('.')
 
@@ -29,7 +29,7 @@ model = load("1.joblib")
 
 #read and infere
 read_opts=dict(
-        sep=',', names=fields, index_col=False, header=None,
+        sep=',', names=fields_without_category, index_col=False, header=None,
         iterator=True, chunksize=100
 )
 
@@ -41,5 +41,5 @@ for df in pd.read_csv(sys.stdin, **read_opts):
     pred = model.predict_proba(df)[::,1]
     out = zip(df.id, pred)
     # logging.info(f'len(df) = {len(df)},len(pred) = {len(pred)} df:{df},pred:{pred}')
-    print("\n".join(["{0},{1}".format(*i) for i in out]))
+    print("\n".join(["{0}\t{1}".format(*i) for i in out]))
 
