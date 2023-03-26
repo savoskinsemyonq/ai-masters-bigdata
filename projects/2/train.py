@@ -31,7 +31,9 @@ logging.info("ARGS {}".format(sys.argv[1:]))
 #
 try:
   proj_id = sys.argv[1] 
-  train_path = sys.argv[2]
+  train_path = '/home/users/datasets/criteo/criteo_train500'
+  # train_path = sys.argv[2]
+
 except:
   logging.critical("Need to pass both project_id and train dataset path")
   sys.exit(1)
