@@ -12,7 +12,7 @@ from joblib import dump
 #
 from model import model
 
-numeric_features = ["if"+str(i) for i in range(1,13)]
+numeric_features = ["if"+str(i) for i in range(1,14)]
 categorical_features = ["cf"+str(i) for i in range(1,27)] + ["day_number"]
 
 fields = ["id", "label"] + numeric_features + categorical_features
