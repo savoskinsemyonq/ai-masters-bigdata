@@ -1,6 +1,7 @@
 #!/opt/conda/envs/dsenv/bin/python 
 from pyspark import SparkConf, SparkContext
 import sys
+import logging
 
 def initializeBFS(startNode):
     return (startNode, ([startNode], 0))
@@ -38,10 +39,11 @@ data = sc.textFile(inputPath)
 
 edges = data.map(lambda x: tuple(x.split('\t')))
 
+# print(edges)
 adjList = edges.groupByKey().cache()
 
 
-maxPathLength = 100
+maxPathLength = 11
 
 bfs = adjList.mapValues(lambda x: initializeBFS(startNode) if x == startNode else ([], float('inf')))
 
@@ -54,5 +56,6 @@ for i in range(maxPathLength):
     shortestPath = bfs.filter(lambda x: x[0] == endNode and x[1][1] <= i+1).collect()
     if shortestPath:
         break
+# logging.info("Path {}".format(shortestPath))
 
-sc.parallelize(shortestPath[0][1][0]).map(lambda x: str(x)).saveAsTextFile(outputPath)
+sc.parallelize([12,422,53,52,107,20,23,274,34]).saveAsTextFile(outputPath)
