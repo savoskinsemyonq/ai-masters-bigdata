@@ -43,7 +43,7 @@ edges = data.map(lambda x: tuple(x.split('\t')))
 adjList = edges.groupByKey().cache()
 
 
-maxPathLength = 11
+maxPathLength = 20
 
 bfs = adjList.mapValues(lambda x: initializeBFS(startNode) if x == startNode else ([], float('inf')))
 
