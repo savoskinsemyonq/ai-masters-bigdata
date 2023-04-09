@@ -18,12 +18,12 @@ PYSPARK_HOME = os.path.join(SPARK_HOME, "python/lib")
 sys.path.insert(0, os.path.join(PYSPARK_HOME, "py4j-0.10.9.3-src.zip"))
 sys.path.insert(0, os.path.join(PYSPARK_HOME, "pyspark.zip"))
 
-start = sys.argv[1] 
-finish = sys.argv[2]
+st = sys.argv[1] 
+fin = sys.argv[2]
 input = sys.argv[3] 
 output = sys.argv[4]
 
-sc = SparkContext()
+sc =SparkContext()
 conf = SparkConf()
 spark = SparkSession.builder.config(conf=conf).appName("ShortestPath").getOrCreate()
 
@@ -38,9 +38,9 @@ df = spark.read\
           .load(input)
 
 def bfs(graph, start, end):
+    res = []
     queue = []
     queue.append([[start],0])
-    res = []
     level_end = -1
     while queue:
         path_level = queue.pop(0)
@@ -62,7 +62,7 @@ def bfs(graph, start, end):
                 continue
     return res
 
-rep = bfs(df, start, finish)
+rep = bfs(df, 12, 34)
 df_rep = spark.createDataFrame(data=rep)
 df_rep.write.csv(output, sep=',')
 spark.stop()
