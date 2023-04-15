@@ -3,13 +3,6 @@
 import os
 import sys
 
-from pyspark import SparkConf
-from pyspark.sql import SparkSession
-from pyspark import SparkContext
-
-from model import pipeline
-from pyspark.sql.types import *
-
 SPARK_HOME = "/usr/lib/spark3"
 PYSPARK_PYTHON = "/opt/conda/envs/dsenv/bin/python"
 PYSPARK_DRIVER_PYTHON = "/opt/conda/envs/dsenv/bin/python"
@@ -24,12 +17,17 @@ sys.path.insert(0, os.path.join(PYSPARK_HOME, "pyspark.zip"))
 input_data = sys.argv[1] 
 output_model = sys.argv[2]
 
+from pyspark import SparkConf
+from pyspark.sql import SparkSession
+from pyspark import SparkContext
 
 sc =SparkContext()
 conf = SparkConf()
 spark = SparkSession.builder.config(conf=conf).appName("Spark SQL").getOrCreate()
 spark.sparkContext.setLogLevel('WARN')
 
+from model import pipeline
+from pyspark.sql.types import *
 
 schema = StructType(fields=[
     StructField("overall", FloatType()),
