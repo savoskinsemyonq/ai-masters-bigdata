@@ -1,0 +1,9 @@
+name: MLProject
+
+conda_env: conda.yaml
+entry_points:
+  main:
+    parameters:
+      train_path: path
+      model_param1: {type: int, default: 1000}
+    command: "python3 train.py {train_path} {model_param1}"
