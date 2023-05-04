@@ -18,7 +18,7 @@ prediction_path_out = 'savoskinsemyonq_hw6_prediction'
 with DAG(
     dag_id = "savoskinsemyonq_dag",
     schedule_interval = None,
-    start_date = datetime(2022, 5, 6),
+    start_date = datetime(2023, 5, 4),
     catchup = False
 ) as dag:
     
