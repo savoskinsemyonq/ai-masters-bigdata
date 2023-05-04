@@ -25,7 +25,7 @@ with DAG(
     
     feature_eng_train_task = SparkSubmitOperator(
           task_id = "feature_eng_train_task",
-          application=f"{base_dir}/feature_eng_train.py",
+          application=f"{base_dir}/preprocessing_spark.py",
           application_args = ["--path-in", train_path_in, "--path-out", train_path_out],
           spark_binary = "/usr/bin/spark-submit",
           env_vars={"PYSPARK_PYTHON": dsenv}
@@ -46,14 +46,14 @@ with DAG(
     )
     feature_eng_test_task = SparkSubmitOperator(
           task_id = "feature_eng_test_task",
-          application=f"{base_dir}/feature_eng_test.py",
+          application=f"{base_dir}/preprocessing_spark_test.py",
           application_args = ["--path-in", test_path_in, "--path-out", test_path_out],
           spark_binary = "/usr/bin/spark-submit",
           env_vars={"PYSPARK_PYTHON": dsenv}
     )
     predict_task = SparkSubmitOperator(
         task_id = "predict_task",
-        application = f"{base_dir}/predict.py",
+        application = f"{base_dir}/spark_predict.py",
         application_args = ["--test-in", test_path_out, "--pred-out", prediction_path_out, "--sklearn-model-in", f"{base_dir}/{n_proj}.joblib"],
         spark_binary = "/usr/bin/spark-submit",
         env_vars={"PYSPARK_PYTHON": dsenv}
