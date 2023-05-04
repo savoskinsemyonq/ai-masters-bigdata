@@ -12,8 +12,9 @@ train_path_in = '/datasets/amazon/all_reviews_5_core_train_extra_small_sentiment
 test_path_in = '/datasets/amazon/all_reviews_5_core_test_extra_small_features.json'
 train_path_out = 'savoskinsemyonq_train_out'
 test_path_out = 'savoskinsemyonq_test_out'
-n_proj = '6'
 prediction_path_out = 'savoskinsemyonq_hw6_prediction'
+n_proj = '6'
+
 
 with DAG(
     dag_id = "savoskinsemyonq_dag",
